@@ -15,39 +15,42 @@ import (
 )
 
 func test() {
-	l1 := &ListNode{9, &ListNode{1, &ListNode{6, nil}}}
+	// l1 := &ListNode{9, &ListNode{1, &ListNode{6, nil}}}
 	// l2 := &ListNode{rand.Intn(10), &ListNode{rand.Intn(10), &ListNode{rand.Intn(10), nil}}}
-	l2 := &ListNode{0, nil}
+	l2 := &ListNode{5, nil}
+	l1 := &ListNode{5, nil}
 	fmt.Println("add ", l1, l2, "result", addTwoNumbers(l1, l2))
 }
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	result := &ListNode{0, nil}
-
+	// fmt.Println("addTwoNumbers", l1, l2)
 	if l1 == nil && l2 == nil {
-		return result
+		return nil
 	}
+	result := &ListNode{0, nil}
 	t := 0
-	var nex1, next2 ListNode
+	var next1, next2 *ListNode
 	if l1 != nil {
 		t += l1.Val
-		nex1 = l1.Next
+		next1 = l1.Next
 	}
 	if l2 != nil {
 		t += l2.Val
-		next2 = l1.Next
+		next2 = l2.Next
 	}
 	if t >= 10 {
 		switch {
 		case next1 != nil:
-			nex1.Val += t / 10
+			next1.Val += t / 10
 		case next2 != nil:
 			next2.Val += t / 10
+		default:
+			next1 = &ListNode{Val: t / 10}
 		}
 
 	}
 	result.Val = t % 10
-	if node != nil {
+	if next1 != nil || next2 != nil {
 		result.Next = addTwoNumbers(next1, next2)
 	}
 

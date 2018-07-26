@@ -17,24 +17,27 @@ func lengthOfLongestSubstring(s string) int {
 	temps := make(map[string]int)
 	index := 0
 	strLen := len(s)
+	count := 0
 	for j := 0; j < strLen; j++ {
 		key := s[j : j+1]
 
-		_, find := temps[key]
+		v, find := temps[key]
 
-		if find { //找到了 移动index重新找
-			index++
-			temps = make(map[string]int)
-			j = index - 1
-		} else {
-			l := j - index + 1 //当前处理的字符串长度
-			if l > len(longest) {
-				longest = s[index : j+1]
+		if find {
+			if index < v {
+				index = v
 			}
-			temps[key] = j
+
 		}
+		newLen := j - index + 1
+		if len(longest) < newLen {
+			longest = s[index : j+1]
+		}
+		temps[key] = j + 1
+		count++
 
 	}
+	// fmt.Printf("字符串:%v,长度:%v,一共执行%v次.\n", longest, strLen, count)
 	return len(longest)
 
 }

@@ -27,8 +27,6 @@ import (
 )
 
 func reverse(x int) int {
-	max := 0xffffffff / 2
-	min := -0xffffffff + 1
 
 	negative := x < 0
 	if negative {
@@ -45,8 +43,8 @@ func reverse(x int) int {
 	if negative {
 		result = -result
 	}
-	if result > max || result < min {
-		return 0
+	if int(int32(result)) != result {
+		result = 0
 	}
 	// fmt.Println(b.String())
 	return result

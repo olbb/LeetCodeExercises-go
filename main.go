@@ -7,8 +7,7 @@ import (
 
 func main() {
 	t1 := time.Now()
-
-	fmt.Println(reverse(1534236469))
+	fmt.Println(isPalindrome(1001))
 
 	t2 := time.Now()
 	fmt.Println(t2.Sub(t1))

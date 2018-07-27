@@ -7,7 +7,7 @@ import (
 
 func main() {
 	t1 := time.Now()
-	fmt.Println(isPalindrome(1001))
+	trapTest()
 
 	t2 := time.Now()
 	fmt.Println(t2.Sub(t1))

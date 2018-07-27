@@ -5,18 +5,18 @@ package main
 
 import "fmt"
 
-type testCase struct {
+type trapTestCase struct {
 	v []int
 	r int
 }
 
 func trapTest() {
-	cases := []testCase{
-		testCase{[]int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}, 6},
-		testCase{[]int{4, 2, 3}, 1},
-		testCase{[]int{4, 9, 4, 5, 3, 2}, 1},
-		testCase{[]int{4, 3, 3, 9, 3, 0, 9, 2, 8, 3}, 23},
-		testCase{[]int{5, 2, 1, 2, 1, 5}, 14},
+	cases := []trapTestCase{
+		trapTestCase{[]int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}, 6},
+		trapTestCase{[]int{4, 2, 3}, 1},
+		trapTestCase{[]int{4, 9, 4, 5, 3, 2}, 1},
+		trapTestCase{[]int{4, 3, 3, 9, 3, 0, 9, 2, 8, 3}, 23},
+		trapTestCase{[]int{5, 2, 1, 2, 1, 5}, 14},
 	}
 	for _, v := range cases {
 		fmt.Println("test", trap(v.v), v.r)

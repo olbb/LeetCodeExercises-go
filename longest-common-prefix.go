@@ -18,21 +18,55 @@
 */
 package main
 
-func longestCommonPrefix(strs []string) string {
-	index := 0
-	l := len(strs[0])
-	for _, v := range strs {
-		l = minInt(l, len(v))
+import (
+	"fmt"
+)
+
+type lCPTestCase struct {
+	strs []string
+	r    string
+}
+
+func testLCP() {
+	cases := []lCPTestCase{
+		lCPTestCase{[]string{"flower", "flow", "flight"}, "fl"},
+		lCPTestCase{[]string{"dog", "racecar", "car"}, ""},
+		lCPTestCase{[]string{}, ""},
 	}
+	for _, v := range cases {
+		r := longestCommonPrefix(v.strs)
+		fmt.Printf("longestCommonPrefix(strs %v) = %v , %v\n", v.strs, r, v.r == r)
+	}
+}
+
+func longestCommonPrefix(strs []string) string {
+	if len(strs) == 0 {
+		return ""
+	}
+	if len(strs) == 1 {
+		return strs[0]
+	}
+	index := -1
+	l := len(strs[0])
+
+	// for _, v := range strs {
+	// 	if v == "" {
+	// 		return ""
+	// 	}
+	// 	l = minInt(l, len(v))
+	// }
 	for i := 0; i < l; i++ {
 		b := strs[0][i : i+1]
+		// fmt.Println("i:", i, " b:", b)
 		for _, v := range strs {
-			if b != v[i:i+1] {
-				break
+			if i >= len(v) || b != v[i:i+1] {
+				// fmt.Println("breaked,index is ", index)
+				return strs[0][:index+1]
 			}
 		}
+		index = i
 	}
-	return strs[0][:index]
+	return strs[0][:index+1]
 }
 
 func minInt(a, b int) int {

@@ -7,7 +7,7 @@ import (
 
 func main() {
 	t1 := time.Now()
-	testJump()
+	bulbTest()
 
 	t2 := time.Now()
 	fmt.Println(t2.Sub(t1))

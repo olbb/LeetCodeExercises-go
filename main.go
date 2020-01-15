@@ -7,7 +7,9 @@ import (
 
 func main() {
 	t1 := time.Now()
-	testCanJump()
+	// testCanJump()
+
+	longestPalindrome("abcbd")
 
 	t2 := time.Now()
 	fmt.Println(t2.Sub(t1))

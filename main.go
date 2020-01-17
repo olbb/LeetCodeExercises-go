@@ -9,7 +9,7 @@ func main() {
 	t1 := time.Now()
 	// testCanJump()
 
-	longestPalindrome("abcbd")
+	testLP()
 
 	t2 := time.Now()
 	fmt.Println(t2.Sub(t1))

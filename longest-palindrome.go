@@ -26,11 +26,11 @@ type lpTestCase struct {
 
 func testLP() {
 	cases := []lpTestCase{
-		// lpTestCase{"babad", "bab"},
-		// lpTestCase{"cbbd", "bb"},
-		// lpTestCase{"cbababd", "babab"},
-		// lpTestCase{"a", "a"},
-		// lpTestCase{"ac", "a"},
+		lpTestCase{"babad", "bab"},
+		lpTestCase{"cbbd", "bb"},
+		lpTestCase{"cbababd", "babab"},
+		lpTestCase{"a", "a"},
+		lpTestCase{"ac", "a"},
 		lpTestCase{"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
 	}
 	for _, v := range cases {
@@ -54,10 +54,12 @@ func longestPalindrome(str string) string {
 		}
 	}
 	newStr := sb.String()
-	fmt.Println("deal", newStr)
+	// fmt.Println("deal", newStr)
 	strs2 := strings.Split(newStr, "")
 	l = len(strs2)
 	var longest = strs2[0]
+	longestl := 0
+	longestr := 0
 	for i := 1; i < l-1; i++ {
 		// fmt.Println("index is ", i, ",len is:", l)
 		curSize := 0
@@ -65,46 +67,31 @@ func longestPalindrome(str string) string {
 		left := i
 		right := i
 		for {
-			// tmp.Reset()
+			if left < 1 || right >= l-1 || strs2[left-1] != strs2[right+1] {
+				if left%2 != 0 {
+					left++
+
+				}
+				break
+			}
 			curSize = curSize + 1
 			left = i - curSize
 			right = i + curSize
-			if left < 0 || right >= l || strs2[left] != strs2[right] {
-				break
-			}
-			// fmt.Println("find", strs2[left:right+1], "i=", i, left, right, "left%2 == 0", left%2 == 0)
-			// if left%2 == 0 { // b#b形式
-
-			// 	for j := left; j <= right; j = j + 2 {
-			// 		// fmt.Println("append:" + strs2[j])
-			// 		tmp.WriteString(strs2[j])
-			// 	}
-			// } else { // #b# 形式
-			// 	for j := left + 1; j <= right; j = j + 2 {
-			// 		// fmt.Println("append:" + strs2[j])
-			// 		tmp.WriteString(strs2[j])
-			// 	}
-			// }
-			if left%2 != 0 { //  #b#
-				left++
-			}
-
-			//strnew := tmp.String()
-			// fmt.Println("result:" + strnew)
-			// if len(strnew) > 0 {
-			// 	// fmt.Println("got :", strnew)
-			// 	if len(longest) < len(strnew) {
-			// 		longest = strnew
-			// 	}
-			// }
 		}
-		ll := (right - left)/2
-		if (ll > len(longest)) {
-			for (j == left; j<= right; j = j + 2) {
-				
-			}
+		// fmt.Printf("test left:%v,right:%v\n", left, right)
+		ll := (right-left)/2 + 1
+		ol := (longestr-longestl)/2 + 1
+		if ll > ol {
+			longestl = left
+			longestr = right
 		}
 
 	}
+	var tmp strings.Builder
+	// fmt.Printf("result:%v, left is :%v ,ll:%v\n", strs2[left:right+1], left, ll)
+	for j := longestl; j <= longestr; j = j + 2 {
+		tmp.WriteString(strs2[j])
+	}
+	longest = tmp.String()
 	return longest
 }
